@@ -154,4 +154,33 @@ describe Board do
     end
   end
 
+  describe "#draw?" do
+    context "when the board isn't full" do
+      subject(:empty_board) { described_class.new }
+      it "returns false" do
+        result = empty_board.draw?
+        expect(result).to eq(false)
+      end
+    end
+
+    context "when the board is full" do
+      subject(:full_board) { described_class.new }
+
+      before do
+        6.times { full_board.place_mark(0, :F) }
+        6.times { full_board.place_mark(1, :F) }
+        6.times { full_board.place_mark(2, :F) }
+        6.times { full_board.place_mark(3, :F) }
+        6.times { full_board.place_mark(4, :F) }
+        6.times { full_board.place_mark(5, :F) }
+        6.times { full_board.place_mark(6, :F) }
+      end
+
+      it "returns true" do
+        result = full_board.draw?
+        expect(result).to eq(true)
+      end
+    end
+  end
+
 end
