@@ -89,4 +89,17 @@ class Board
     return true if win_straight_line(rows_array) || win_straight_line(rows_array_reverse)
   end
 
+  def draw?
+    @rows.each_with_index do |row, index|
+      return false if !row_full?(index)
+    end
+    true
+  end
+
+  def print_board
+    display = @rows.transpose
+    puts "0 1 2 3 4 5 6 "
+    display.each { |row| puts row.join(" ") }
+  end
+
 end
