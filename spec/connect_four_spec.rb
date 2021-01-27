@@ -93,4 +93,65 @@ describe Board do
     end
   end
 
+  describe "#win?" do
+    context "when there's an empty board" do
+      subject(:empty_board) { described_class.new }
+      it "returns false" do
+        result = empty_board.win?
+        expect(result).to eq(false)
+      end
+    end
+
+    context "when horizontal win" do
+      subject(:horizontal_win) { described_class.new }
+
+      before do
+        horizontal_win.place_mark(0, :J)
+        horizontal_win.place_mark(1, :J)
+        horizontal_win.place_mark(2, :J)
+        horizontal_win.place_mark(3, :J)
+      end
+
+      it "returns true" do
+        result = horizontal_win.win?
+        expect(result).to eq(true)
+      end
+    end
+
+    context "when vertical win" do
+      subject(:vertical_win) { described_class.new }
+
+      before do
+        4.times { vertical_win.place_mark(0, :J) }
+      end
+
+      it "returns true" do
+        result = vertical_win.win?
+        expect(result).to eq(true)
+      end
+    end
+
+    context "when diagonal win" do
+      subject(:diagonal_win) { described_class.new }
+
+      before do
+        diagonal_win.place_mark(0, :W)
+        diagonal_win.place_mark(1, :L)
+        diagonal_win.place_mark(1, :W)
+        diagonal_win.place_mark(2, :L)
+        diagonal_win.place_mark(2, :L)
+        diagonal_win.place_mark(2, :W)
+        diagonal_win.place_mark(3, :L)
+        diagonal_win.place_mark(3, :L)
+        diagonal_win.place_mark(3, :L)
+        diagonal_win.place_mark(3, :W)
+        p diagonal_win.rows
+      end
+      it "returns true" do
+        result = diagonal_win.win?
+        expect(result).to eq(true)
+      end
+    end
+  end
+
 end
